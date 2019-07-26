@@ -1,59 +1,57 @@
-struct UF {
-    UF(int n) {
-        father.resize(n + 1);
-        for (int i = 0; i < father.size(); ++i) {
-            father[i] = i;
-        }
-    }
-    bool Union(int a, int b) {
-        int root1 = Find(a), root2 = Find(b);
-        if (root1 != root2) {
-            father[root2] = root1; //or father[root1] = root2;
-            return true;
-        }
-        return false;
-    }
-    int Find(int k) {
-        int i = k, j = k;
-        while (i != father[i]) i = father[i]; // i is the root of k.
-        //path comdense (to be continued)
-
-        while (j != father[j]) {
-            int tmp = father[j];
-            father[j] = i;
-            j = tmp;
-        }
-        return i;
-    }
-    vector<int> father;
-};
-
-class Solution {
+class UF{
 public:
-    bool areSentencesSimilarTwo(vector<string>& words1, vector<string>& words2, vector<pair<string, string>> pairs) {
-        if (words1.size() != words2.size()) return false;
-        unordered_map<string, int> index;
-        int count = 0;
-        for (int i = 0; i < pairs.size(); ++i) {
-            if (index[pairs[i].first] == 0) {
-                ++count;
-                index[pairs[i].first] = count;
-            }
-            if (index[pairs[i].second] == 0) {
-                ++count;
-                index[pairs[i].second] = count;
-            }
+    UF(int size) : _count(size), _id(size), _weight(size, 1) {
+        for (int i = 0; i < size; ++i) {
+            _id[i] = i;
         }
-
-        UF uf_set(count);
-        for (int i = 0; i < pairs.size(); ++i) {
-            uf_set.Union(index[pairs[i].first], index[pairs[i].second]);
+    }
+    
+    bool connect(int a, int b) {
+        int r1 = root(a);
+        int r2 = root(b);
+        if (r1 == r2) return false;
+        if (_weight[r1] < _weight[r2]) {
+            _id[r1] = r2;
+            _weight[r2] += _weight[r1];
+        } else {
+            _id[r2] = r1;
+            _weight[r1] += _weight[r2];
         }
-        for (int i = 0; i < words1.size(); ++i) {
-            if (words1[i] == words2[i]) continue;
-            int root1 = uf_set.Find(index[words1[i]]), root2 = uf_set.Find(index[words2[i]]);
-            if (root1 == 0 || root2 == 0 || root1 != root2) return false;
-        }
+        --_count;
         return true;
+    }
+    
+    bool connected(int a, int b) {
+        return root(a) == root(b);
+    }
+    
+    int count() {
+        return _count;
+    }
+private:
+    int root(int a) {
+        while (a != _id[a]) {
+            _id[a] = _id[_id[a]];
+            a = _id[a];
+        }
+        return a;
+    }
+private:
+    vector<int> _id;
+    vector<int> _weight;
+    int _count;
+};
+class Solution {   
+public:
+    int findCircleNum(vector<vector<int>>& M) {
+        int n=M.size();
+        if(n==0)    return 0;
+        UF uf(n);
+        for(int i=0;i<n;++i){
+            for(int j=0;j<n;++j){
+                if(i!=j&&M[i][j])   uf.connect(i,j);
+            }
+        }
+        return uf.count();
     }
 };
