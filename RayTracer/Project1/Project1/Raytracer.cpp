@@ -7,7 +7,7 @@ using namespace std;
 Vec3 color(const ray& r) {
 	Vec3 unit_direction = unit_vec(r.direction());
 	float t = 0.5*unit_direction.y() + 1.0;
-	return (1.0 - t)*Vec3(1.0, 1.0, 1.0) + t * Vec3(0.5, 0.7, 1.0);
+	return (1.0 - t)*Vec3(1.0, 1.0, 1.0) + t * Vec3(0.5, 0.7, 1.0); //Lerp
 }
 
 int main()
