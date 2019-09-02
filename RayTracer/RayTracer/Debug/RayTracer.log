@@ -1,7 +1,31 @@
 ﻿  RayTracer.cpp
-e:\repo\coderepo\raytracer\raytracer\vec3.h(38): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-e:\repo\coderepo\raytracer\raytracer\vec3.h(91): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(20): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(21): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(21): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\vec3.h(55): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\vec3.h(134): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\hitable_list.h(21): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\camera.h(10): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\camera.h(19): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\material.h(19): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\material.h(37): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\material.h(94): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(17): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(29): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(30): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(30): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(42): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(43): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(43): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(44): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(46): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(46): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(50): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(50): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(53): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(60): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(61): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(75): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(76): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(77): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(78): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(80): warning C4305: “参数”: 从“double”到“float”截断
+e:\repo\coderepo\raytracer\raytracer\raytracer.cpp(87): warning C4305: “初始化”: 从“double”到“float”截断
   RayTracer.vcxproj -> E:\Repo\CodeRepo\RayTracer\Debug\RayTracer.exe

@@ -1,37 +1,48 @@
-#include"hitable.h"
 
-class Sphere :public hitable {
+#ifndef SPHEREH
+#define SPHEREH
+
+#include "hitable.h"
+
+class sphere : public hitable {
 public:
+	sphere() {}
+	sphere(vec3 cen, float r, material *m) : center(cen), radius(r), mat_ptr(m) {};
+	virtual bool hit(const ray& r, float tmin, float tmax, hit_record& rec) const;
+	vec3 center;
 	float radius;
-	Vec3 center;
-	Sphere() {}
-	Sphere(Vec3 cen, float r) :center(cen), radius(r) {}
-	virtual bool hit(const ray& r, float tmin, float tmax, hit_record& rec)	const;
-
+	material *mat_ptr;
 };
-//判断是否可以打击到圆
-//判断条件为解析几何里的直线与圆相交，如果相交，返回的true
-bool Sphere::hit(const ray& r, float tmin, float tmax, hit_record& rec)	const {
-	Vec3 oc = r.origin() - center;
+
+bool sphere::hit(const ray& r, float t_min, float t_max, hit_record& rec) const {
+	vec3 oc = r.origin() - center;
 	float a = dot(r.direction(), r.direction());
-	float b = 2 * dot(oc, r.direction());
+	float b = dot(oc, r.direction());
 	float c = dot(oc, oc) - radius * radius;
-	float d = (b * b - a*c > 0);//求根公式
-	if (d > 0) {
-		float root= (-b - sqrt(d) / a);
-		if (root<tmax&&root>tmin) {
-			rec.t = root;
+	float discriminant = b * b - a * c;
+	if (discriminant > 0) {
+		float temp = (-b - sqrt(discriminant)) / a;
+		if (temp < t_max && temp > t_min) {
+			rec.t = temp;
 			rec.p = r.point_at_parameter(rec.t);
 			rec.normal = (rec.p - center) / radius;
+			rec.mat_ptr = mat_ptr;
 			return true;
 		}
-		root = (-b + sqrt(d) / a);
-		if (root<tmax&&root>tmin) {
-			rec.t = root;
+		temp = (-b + sqrt(discriminant)) / a;
+		if (temp < t_max && temp > t_min) {
+			rec.t = temp;
 			rec.p = r.point_at_parameter(rec.t);
 			rec.normal = (rec.p - center) / radius;
+			rec.mat_ptr = mat_ptr;
 			return true;
 		}
 	}
 	return false;
 }
+
+
+#endif
+
+
+
