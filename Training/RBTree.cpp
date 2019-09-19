@@ -1,6 +1,3 @@
-#include<iostream>
-using namespace std;
-
 enum RBTColor { RED, BLACK };
 
 template <class T>
@@ -106,6 +103,11 @@ private://内部接口
 };
 
 //================================================================
+/*
+ * 构造函数与析构函数
+ *
+ * 
+ */
 template <class T>
 RBTree<T>::RBTree():mRoot(NULL)
 {
@@ -117,7 +119,15 @@ RBTree<T>::~RBTree()
 {
 	destroy();
 }
+
 //================================================================
+/*
+ * 先序、中序、后序遍历
+ *
+ * 参数说明：
+ *     tree 红黑树的根
+ * 
+ */
 //先序遍历
 template <class T>
 void RBTree<T>::preOrder(RBTNode<T>* tree) const
@@ -171,7 +181,14 @@ void RBTree<T>::preOrder()
 }
 
 //================================================================
-//查找指定的值key的节点(递归实现)
+/*
+ * 查找指定key值的节点
+ *
+ * 参数说明：
+ *     x 红黑树的根
+ * 	   key 要查找的值
+ * 
+ */
 template <class T>
 RBTNode<T>* RBTree<T>::search(RBTNode<T>* x, T key) const
 {
@@ -208,7 +225,13 @@ RBTNode<T>* RBTree<T>::iterativeSearch(T key)
 }
 
 //================================================================
-//查找最小节点
+/*
+ * 查找最小节点
+ *
+ * 参数说明：
+ *     tree 红黑树的根
+ * 
+ */
 template <class T>
 RBTNode<T>* RBTree<T>::minimum(RBTNode<T>* tree)
 {
@@ -228,7 +251,13 @@ T RBTree<T>::minimum()
 	}
 	return (T)NULL;//注意这里
 }
-//查找最大节点
+/*
+ * 查找最大节点
+ *
+ * 参数说明：
+ *     tree 红黑树的根
+ * 
+ */
 template <class T>
 RBTNode<T>* RBTree<T>::maximum(RBTNode<T>* tree)
 {
@@ -250,11 +279,19 @@ T RBTree<T>::maximum()
 }
 
 //================================================================
-//查找节点x的后继节点，即，查找数据值大于该节点的最小节点
+/*
+ * 查找后继节点
+ *
+ * 查找节点x的后继节点，即，查找数据值大于该节点的最小节点
+ *
+ * 参数说明：
+ *     x 要查找的基准节点
+ * 
+ */
 template <class T>
 RBTNode<T>* RBTree<T>::successor(RBTNode<T> *x)
 {
-	if(x->right)	return minimum(x->right);
+	if(x->right)	return minimum(x->right); //注意这里
 	RBTNode<T>* p=x->parent;
 	while(p && x==p->right){
 		x=p;
@@ -263,7 +300,15 @@ RBTNode<T>* RBTree<T>::successor(RBTNode<T> *x)
 	return p;
 
 }
-//查找节点x的前驱节点，即，查找数据值小于该节点的最大节点
+/*
+ * 查找前驱节点
+ *
+ * 查找节点x的前驱节点，即，查找数据值小于该节点的最大节点
+ *
+ * 参数说明：
+ *     x 要查找的基准节点
+ * 
+ */
 template <class T>
 RBTNode<T>* RBTree<T>::predecessor(RBTNode<T>* x)
 {
@@ -277,21 +322,22 @@ RBTNode<T>* RBTree<T>::predecessor(RBTNode<T>* x)
 }
 
 //================================================================
-//这里一定要写模板
 /* 
-336  * 对红黑树的节点(x)进行左旋转
-337  *
-338  * 左旋示意图(对节点x进行左旋)：
-339  *      px                              px
-340  *     /                               /
-341  *    x                               y                
-342  *   /  \      --(左旋)-->           / \                #
-343  *  lx   y                          x  ry     
-344  *     /   \                       /  \
-345  *    ly   ry                     lx  ly  
-346  *
-347  *
-348  */
+* 对红黑树的节点(x)进行左旋转
+*
+* 左旋示意图(对节点x进行左旋)：
+*      px                              px
+*     /                               /
+*    x                               y                
+*   /  \      --(左旋)-->           / \                #
+*  lx   y                          x  ry     
+*     /   \                       /  \
+*    ly   ry                     lx  ly  
+*
+* 参数说明：
+*     root 红黑树的根
+*     x 对这个节点旋转，实际上跟root没啥关系
+*/
 template<class T> 
 void RBTree<T>::leftRotate(RBTNode<T>*& root, RBTNode<T>* x)
 {
@@ -313,21 +359,22 @@ void RBTree<T>::leftRotate(RBTNode<T>*& root, RBTNode<T>* x)
 	y->left = x;
 	x->parent = y;
 }
-
 /* 
-383  * 对红黑树的节点(y)进行右旋转
-384  *
-385  * 右旋示意图(对节点y进行左旋)：
-386  *            py                               py
-387  *           /                                /
-388  *          y                                x                  
-389  *         /  \      --(右旋)-->            /  \                     #
-390  *        x   ry                           lx   y  
-391  *       / \                                   / \                   #
-392  *      lx  rx                                rx  ry
-393  * 
-394  */
-
+* 对红黑树的节点(y)进行右旋转
+* 
+* 右旋示意图(对节点y进行左旋)：
+*            py                               py
+*           /                                /
+*          y                                x                  
+*         /  \      --(右旋)-->            /  \                     #
+*        x   ry                           lx   y  
+*       / \                                   / \                   #
+*      lx  rx                                rx  ry
+* 
+* 参数说明：
+*     root 红黑树的根
+*     y 对这个节点旋转，实际上跟root没啥关系
+*/
 template<class T>
 void RBTree<T>::rightRotate(RBTNode<T>*& root, RBTNode<T>* y)
 {
@@ -354,7 +401,17 @@ void RBTree<T>::rightRotate(RBTNode<T>*& root, RBTNode<T>* y)
 }
 
 //================================================================
-//插入操作
+/*
+ * 红黑树插入函数
+ *
+ * 在向红黑树中插入节点
+ * 按照正常的二叉排序树对待，最后调用调整函数
+ *
+ * 参数说明：
+ *     root 红黑树的根
+ *     node 插入的结点        // 对应《算法导论》中的z
+ * 
+ */
 //内部接口
 template <class T>
 void insert(RBTNode<T>* &root, RBTNode<T>* node)
@@ -393,7 +450,6 @@ void RBTree<T>::insert(T key)
         return;
     insert(mRoot,z);
 }
-
 /*
  * 红黑树插入修正函数
  *
@@ -406,7 +462,6 @@ void RBTree<T>::insert(T key)
  * 
  * 比较困难，牢记
  */
-
 template <class T>
 void RBTree<T>::insertFixUp(RBTNode<T>* &root, RBTNode<T>* node)
 {
@@ -460,3 +515,5 @@ void RBTree<T>::insertFixUp(RBTNode<T>* &root, RBTNode<T>* node)
     rb_set_black(root);
 }
 
+//================================================================
+//删除操作
