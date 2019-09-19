@@ -105,7 +105,193 @@ private://内部接口
 #define rb_set_color(r,c)  do { (r)->color = (c); } while (0)
 };
 
+//================================================================
+template <class T>
+RBTree<T>::RBTree():mRoot(NULL)
+{
+	mRoot=NULL;
+}
+
+template <class T>
+RBTree<T>::~RBTree()
+{
+	destroy();
+}
+//================================================================
+//先序遍历
+template <class T>
+void RBTree<T>::preOrder(RBTNode<T>* tree) const
+{
+	if(tree==NULL)	return;
+	{
+		cout<<tree->key<<" ";
+		preOrder(tree->left);
+		preOrder(tree->right);
+	}
+}
+
+template <class T>
+void RBTree<T>::preOrder() 
+{
+	preOrder(mRoot);
+}
+//中序遍历
+template <class T>
+void RBTree<T>::inOrder(RBTNode<T>* tree) const
+{
+	if(tree==NULL)	return;
+	{
+		preOrder(tree->left);
+		cout<<tree->key<<" ";
+		preOrder(tree->right);
+	}
+}
+
+template <class T>
+void RBTree<T>::inOrder() 
+{
+	inOrder(mRoot);
+}
+//后序遍历
+template <class T>
+void RBTree<T>::preOrder(RBTNode<T>* tree) const
+{
+	if(tree==NULL)	return;
+	{
+		preOrder(tree->left);
+		preOrder(tree->right);
+		cout<<tree->key<<" ";
+	}
+}
+
+template <class T>
+void RBTree<T>::preOrder()
+{
+	postOrder(tree);
+}
+
+//================================================================
+//查找指定的值key的节点(递归实现)
+template <class T>
+RBTNode<T>* RBTree<T>::search(RBTNode<T>* x, T key) const
+{
+	if(x==NULL || x->key==key)	return x;
+	else if(x->key>key)	return search(x->right,key);
+	return search(x->right,key);
+}
+
+template <class T>
+RBTNode<T>* RBTree<T>::search(T key)
+{
+	search(mRoot,key);
+}
+
+//查找指定的值key的节点(非递归实现)
+template <class T>
+RBTNode<T>* RBTree<T>::iterativeSearch(RBTNode<T>* x, T key) const
+{
+	while(x && x->key != key){
+		if(x->key < key){
+			x=x->right;
+		}
+		else{
+			x=x->left;
+		}
+	}
+	return x;
+}
+
+template <class T>
+RBTNode<T>* RBTree<T>::iterativeSearch(T key)
+{
+	iterativeSearch(mRoot,key);
+}
+
+//================================================================
+//查找最小节点
+template <class T>
+RBTNode<T>* RBTree<T>::minimum(RBTNode<T>* tree)
+{
+	if(tree==NULL)	return tree;
+	while(tree->left!=NULL){
+		tree=tree->left;
+	}
+	return tree;
+}
+
+template <class T>
+T RBTree<T>::minimum()
+{
+	RBTNode<T>* p=minimum(mRoot);
+	if(p!=NULL){
+		return p->key;
+	}
+	return (T)NULL;//注意这里
+}
+//查找最大节点
+template <class T>
+RBTNode<T>* RBTree<T>::maximum(RBTNode<T>* tree)
+{
+	if(tree==NULL)	return tree;
+	while(tree->right!=NULL){
+		tree=tree->right;
+	}
+	return tree;
+}
+
+template <class T>
+T RBTree<T>::maximum()
+{
+	RBTNode<T>* p=maximum(mRoot);
+	if(p!=NULL){
+		return p->key;
+	}
+	return (T)NULL;//注意这里
+}
+
+//================================================================
+//查找节点x的后继节点，即，查找数据值大于该节点的最小节点
+template <class T>
+RBTNode<T>* RBTree<T>::successor(RBTNode<T> *x)
+{
+	if(x->right)	return minimum(x->right);
+	RBTNode<T>* p=x->parent;
+	while(p && x==p->right){
+		x=p;
+		p=p->parent;
+	}
+	return p;
+
+}
+//查找节点x的前驱节点，即，查找数据值小于该节点的最大节点
+template <class T>
+RBTNode<T>* RBTree<T>::predecessor(RBTNode<T>* x)
+{
+	if(x->left)	return maximum(x->left);
+	RBTree<T>* p=x->parent;
+	while(p && p->left==x){
+		x=p;
+		p=p->parent;
+	}
+	return p;
+}
+
+//================================================================
 //这里一定要写模板
+/* 
+336  * 对红黑树的节点(x)进行左旋转
+337  *
+338  * 左旋示意图(对节点x进行左旋)：
+339  *      px                              px
+340  *     /                               /
+341  *    x                               y                
+342  *   /  \      --(左旋)-->           / \                #
+343  *  lx   y                          x  ry     
+344  *     /   \                       /  \
+345  *    ly   ry                     lx  ly  
+346  *
+347  *
+348  */
 template<class T> 
 void RBTree<T>::leftRotate(RBTNode<T>*& root, RBTNode<T>* x)
 {
@@ -127,6 +313,20 @@ void RBTree<T>::leftRotate(RBTNode<T>*& root, RBTNode<T>* x)
 	y->left = x;
 	x->parent = y;
 }
+
+/* 
+383  * 对红黑树的节点(y)进行右旋转
+384  *
+385  * 右旋示意图(对节点y进行左旋)：
+386  *            py                               py
+387  *           /                                /
+388  *          y                                x                  
+389  *         /  \      --(右旋)-->            /  \                     #
+390  *        x   ry                           lx   y  
+391  *       / \                                   / \                   #
+392  *      lx  rx                                rx  ry
+393  * 
+394  */
 
 template<class T>
 void RBTree<T>::rightRotate(RBTNode<T>*& root, RBTNode<T>* y)
@@ -153,6 +353,8 @@ void RBTree<T>::rightRotate(RBTNode<T>*& root, RBTNode<T>* y)
 
 }
 
+//================================================================
+//插入操作
 //内部接口
 template <class T>
 void insert(RBTNode<T>* &root, RBTNode<T>* node)
