@@ -1,5 +1,5 @@
 /*
-å±‚æ¬¡éåŽ†
+²ã´Î±éÀú
 struct TreeNode {
 	int val;
 	struct TreeNode *left;
@@ -17,7 +17,7 @@ public:
         q.push(root);
         while(!q.empty()){
             TreeNode* p = q.front();
-            /*å¦‚æžœæ˜¯ä»Žå³åˆ°å·¦å°±å…ˆæŠŠå³å…¥æ ˆ*/
+
             if(p->left)
                 q.push(p->left);
             if(p->right)
@@ -30,8 +30,8 @@ public:
 };
 
 /*
-è¾“å…¥ä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼Œåˆ¤æ–­è¯¥æ•°ç»„æ˜¯ä¸æ˜¯æŸäºŒå‰æœç´¢æ ‘çš„åŽåºéåŽ†çš„ç»“æžœã€‚
-å¦‚æžœæ˜¯åˆ™è¾“å‡ºYes,å¦åˆ™è¾“å‡ºNoã€‚å‡è®¾è¾“å…¥çš„æ•°ç»„çš„ä»»æ„ä¸¤ä¸ªæ•°å­—éƒ½äº’ä¸ç›¸åŒã€‚
+ÊäÈëÒ»¸öÕûÊýÊý×é£¬ÅÐ¶Ï¸ÃÊý×éÊÇ²»ÊÇÄ³¶þ²æËÑË÷Ê÷µÄºóÐò±éÀúµÄ½á¹û¡£
+Èç¹ûÊÇÔòÊä³öYes,·ñÔòÊä³öNo¡£¼ÙÉèÊäÈëµÄÊý×éµÄÈÎÒâÁ½¸öÊý×Ö¶¼»¥²»ÏàÍ¬¡£
 */
 
 class Solution {
@@ -68,9 +68,9 @@ public:
 
 
 /*
-è¾“å…¥ä¸€é¢—äºŒå‰æ ‘çš„æ ¹èŠ‚ç‚¹å’Œä¸€ä¸ªæ•´æ•°ï¼Œæ‰“å°å‡ºäºŒå‰æ ‘ä¸­ç»“ç‚¹å€¼çš„å’Œä¸ºè¾“å…¥æ•´æ•°çš„æ‰€æœ‰è·¯å¾„ã€‚
-è·¯å¾„å®šä¹‰ä¸ºä»Žæ ‘çš„æ ¹ç»“ç‚¹å¼€å§‹å¾€ä¸‹ä¸€ç›´åˆ°å¶ç»“ç‚¹æ‰€ç»è¿‡çš„ç»“ç‚¹å½¢æˆä¸€æ¡è·¯å¾„ã€‚
-(æ³¨æ„: åœ¨è¿”å›žå€¼çš„listä¸­ï¼Œæ•°ç»„é•¿åº¦å¤§çš„æ•°ç»„é å‰)
+ÊäÈëÒ»¿Å¶þ²æÊ÷µÄ¸ù½ÚµãºÍÒ»¸öÕûÊý£¬´òÓ¡³ö¶þ²æÊ÷ÖÐ½áµãÖµµÄºÍÎªÊäÈëÕûÊýµÄËùÓÐÂ·¾¶¡£
+Â·¾¶¶¨ÒåÎª´ÓÊ÷µÄ¸ù½áµã¿ªÊ¼ÍùÏÂÒ»Ö±µ½Ò¶½áµãËù¾­¹ýµÄ½áµãÐÎ³ÉÒ»ÌõÂ·¾¶¡£
+(×¢Òâ: ÔÚ·µ»ØÖµµÄlistÖÐ£¬Êý×é³¤¶È´óµÄÊý×é¿¿Ç°)
 struct TreeNode {
 	int val;
 	struct TreeNode *left;
@@ -99,8 +99,8 @@ public:
 
 
 /*
-è¾“å…¥ä¸€æ£µäºŒå‰æœç´¢æ ‘ï¼Œå°†è¯¥äºŒå‰æœç´¢æ ‘è½¬æ¢æˆä¸€ä¸ªæŽ’åºçš„åŒå‘é“¾è¡¨ã€‚
-è¦æ±‚ä¸èƒ½åˆ›å»ºä»»ä½•æ–°çš„ç»“ç‚¹ï¼Œåªèƒ½è°ƒæ•´æ ‘ä¸­ç»“ç‚¹æŒ‡é’ˆçš„æŒ‡å‘ã€‚
+ÊäÈëÒ»¿Ã¶þ²æËÑË÷Ê÷£¬½«¸Ã¶þ²æËÑË÷Ê÷×ª»»³ÉÒ»¸öÅÅÐòµÄË«ÏòÁ´±í¡£
+ÒªÇó²»ÄÜ´´½¨ÈÎºÎÐÂµÄ½áµã£¬Ö»ÄÜµ÷ÕûÊ÷ÖÐ½áµãÖ¸ÕëµÄÖ¸Ïò¡£
 struct TreeNode {
 	int val;
 	struct TreeNode *left;
@@ -113,7 +113,58 @@ class Solution {
 public:
     TreeNode* Convert(TreeNode* pRootOfTree)
     {
-        if(pRootOfTree==NULL)   return NULL;
+        if(pRootOfTree == nullptr) return nullptr;
+        TreeNode* pre = nullptr;
+        convertHelper(pRootOfTree, pre);
+        TreeNode* res = pRootOfTree;
+        while(res ->left)
+            res = res ->left;
+        return res;
+    }
+     
+    void convertHelper(TreeNode* cur, TreeNode*& pre)
+    {
+        if(cur == nullptr) return;
+        convertHelper(cur ->left, pre);
+        cur ->left = pre;
+        if(pre) pre ->right = cur;
+        pre = cur;
+        convertHelper(cur ->right, pre);
+
+    }
+};
+
+
+/*
+¸ø¶¨Ò»¸ö¶þ²æÊ÷ºÍÆäÖÐµÄÒ»¸ö½áµã£¬ÇëÕÒ³öÖÐÐò±éÀúË³ÐòµÄÏÂÒ»¸ö½áµã²¢ÇÒ·µ»Ø¡£
+×¢Òâ£¬Ê÷ÖÐµÄ½áµã²»½ö°üº¬×óÓÒ×Ó½áµã£¬Í¬Ê±°üº¬Ö¸Ïò¸¸½áµãµÄÖ¸Õë¡£
+struct TreeLinkNode {
+    int val;
+    struct TreeLinkNode *left;
+    struct TreeLinkNode *right;
+    struct TreeLinkNode *next;
+    TreeLinkNode(int x) :val(x), left(NULL), right(NULL), next(NULL) {
         
+    }
+};
+*/
+class Solution {
+public:
+    TreeLinkNode* GetNext(TreeLinkNode* pNode)
+    {
+        if(pNode == NULL)   return NULL;
+        if(pNode->right!=NULL){
+            pNode=pNode->right;
+            while(pNode->left!=NULL){
+                pNode=pNode->left;
+            }
+            return pNode;
+        }
+        while(pNode->next!=NULL){
+            TreeLinkNode* parent=pNode->next;
+            if(parent->left==pNode) return parent;
+            pNode=parent;
+        }
+        return NULL;
     }
 };
