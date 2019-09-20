@@ -168,3 +168,67 @@ public:
         return NULL;
     }
 };
+
+/*
+给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。
+注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。
+struct TreeLinkNode {
+    int val;
+    struct TreeLinkNode *left;
+    struct TreeLinkNode *right;
+    struct TreeLinkNode *next;
+    TreeLinkNode(int x) :val(x), left(NULL), right(NULL), next(NULL) {
+        
+    }
+};
+*/
+class Solution {
+public:
+    TreeLinkNode* GetNext(TreeLinkNode* pNode)
+    {
+        if(pNode == NULL)   return NULL;
+        if(pNode->right!=NULL){
+            pNode=pNode->right;
+            while(pNode->left!=NULL){
+                pNode=pNode->left;
+            }
+            return pNode;
+        }
+        while(pNode->next!=NULL){
+            TreeLinkNode* parent=pNode->next;
+            if(parent->left==pNode) return parent;
+            pNode=parent;
+        }
+        return NULL;
+    }
+};
+
+/*
+请实现一个函数，用来判断一颗二叉树是不是对称的。
+注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    bool judge(TreeNode* left, TreeNode* right)
+    {
+        if(left == NULL)    return right == NULL;
+        if(right == NULL) return false;
+        if(left->val!=right->val) return false;
+        return judge(left->left, right->right) && judge(left->right, right->left);
+    }
+
+    bool isSymmetrical(TreeNode* pRoot)
+    {
+        if(pRoot==NULL) return true;
+        return judge(pRoot->left,pRoot->right);
+    }
+
+};
