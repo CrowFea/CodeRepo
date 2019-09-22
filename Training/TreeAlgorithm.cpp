@@ -341,7 +341,7 @@ public:
             }
         }
     }
-//后序遍历的时候要设置一个指向前面的走过节点的指针
+    //后序遍历的时候要设置一个指向前面的走过节点的指针
     void postorder(TreeNode *root)
     {
         if(root==NULL)  return NULL;
@@ -370,5 +370,46 @@ public:
             }
         }
         return;
+    }
+};
+
+/*
+* 树的性质运算
+* 求树的高度
+* 求树的节点个数
+* 求树的叶节点个数
+* 树的复制
+*/
+
+class Solution{
+public:
+    int Depth(TreeNode* root)
+    {
+        if(root == NULL)    return 0;
+        int m=Depth(root->left);
+        int n=Depth(root->right);
+        return m>n?m+1:n+1;
+    }
+
+    int NodeCount(TreeNode *root)
+    {
+        if(root == NULL)    return 0;
+        return NodeCount(root->left)+NodeCount(root->right)+1;
+    }
+
+    int leafCount(TreeNode *root)
+    {
+        if(root == NULL)    return 0;
+        if(root->left == NULL && root->right == NULL) return 1;
+        return leafCount(root->left)+leafCount(root->right);
+    }
+
+    TreeNode* copyTree(TreeNode*root, TreeNode &newTree)
+    {
+        if(root == NULL) return NULL;
+        newTree=new TreeNode(0);
+        newTree->val=root->val;
+        copy(root->left,root->right);
+        copy(root->right,root->left);
     }
 };
