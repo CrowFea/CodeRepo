@@ -290,3 +290,85 @@ public:
     }
 };
 
+/*
+非递归遍历二叉树
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+
+class Solution{
+public:
+    void inorder(TreeNode *root)
+    {
+        if(root==NULL)  return NULL;
+        stack<TreeNode*> s;
+        TreeNode* p=root;
+        while(!s.empty()||p){
+            while(p){
+                s.push(p);
+                p=p->left;
+            }
+            if(!s.empty()){
+                p=s.top();
+                s.pop();
+                cout <<p->val<<endl;
+                p=p->right;
+            }
+        }
+    }
+
+    void preorder(TreeNode *root)
+    {
+        if(root==NULL)  return NULL;
+        stack<TreeNode*> s;
+        TreeNode* p=root;
+        while(!s.empty()||p){
+            while(p){
+                cout <<p->val<<endl;
+                s.push(p);
+                p=p->left;
+            }
+            if(!s.empty()){
+                p=s.top();
+                s.pop();
+                p=p->right;
+            }
+        }
+    }
+//后序遍历的时候要设置一个指向前面的走过节点的指针
+    void postorder(TreeNode *root)
+    {
+        if(root==NULL)  return NULL;
+        stack<TreeNode*> s;
+        TreeNode* p=root;
+        TreeNode* plast=NULL;
+
+        while(p){
+            s.push(p);
+            p=p->left;
+        }
+        while(!s.empty()){
+            p=s.top();
+            s.pop();
+            if(p->right== NULL || plast==p->right){
+                cout<<p->val;
+                plast=p;
+            }
+            else{
+                s.push(p);
+                p=p->right;
+                while(p){
+                    s.push(p);
+                    p=p->left;
+                }
+            }
+        }
+        return;
+    }
+};
