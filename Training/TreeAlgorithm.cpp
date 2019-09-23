@@ -8,19 +8,23 @@ struct TreeNode {
 			val(x), left(NULL), right(NULL) {
 	}
 };*/
-class Solution {
+class Solution
+{
 public:
-    vector<int> PrintFromTopToBottom(TreeNode* root) {
-        queue<TreeNode*> q;
+    vector<int> PrintFromTopToBottom(TreeNode *root)
+    {
+        queue<TreeNode *> q;
         vector<int> res;
-        if(root == NULL)    return res;
+        if (root == NULL)
+            return res;
         q.push(root);
-        while(!q.empty()){
-            TreeNode* p = q.front();
+        while (!q.empty())
+        {
+            TreeNode *p = q.front();
 
-            if(p->left)
+            if (p->left)
                 q.push(p->left);
-            if(p->right)
+            if (p->right)
                 q.push(p->right);
             q.pop();
             res.push_back(p)->val;
@@ -34,38 +38,46 @@ public:
 如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
 */
 
-class Solution {
+class Solution
+{
 public:
     bool judge(vector<int> nodes)
     {
-        if(nodes.size() <= 1)   return true;
-        vector<int> left,right;
-        int i,j;
-        for(i=0;i<nodes.size()-1;i++){
-            if(nodes[i]<nodes[nodes.size()-1]){
+        if (nodes.size() <= 1)
+            return true;
+        vector<int> left, right;
+        int i, j;
+        for (i = 0; i < nodes.size() - 1; i++)
+        {
+            if (nodes[i] < nodes[nodes.size() - 1])
+            {
                 left.push_back(nodes[i]);
             }
-            else{
+            else
+            {
                 break;
             }
         }
-        if(i==nodes.size()) return false;
-        for(int j=i;j<nodes.size()-1;j++){
-            if(nodes[j]<nodes[nodes.size()-1]){
+        if (i == nodes.size())
+            return false;
+        for (int j = i; j < nodes.size() - 1; j++)
+        {
+            if (nodes[j] < nodes[nodes.size() - 1])
+            {
                 return false;
             }
             right.push_back(nodes[j]);
         }
-        return judge(left)&&judge(right);
+        return judge(left) && judge(right);
     }
 
-    bool VerifySquenceOfBST(vector<int> sequence) {
-        if(sequence.size()==0)  return false;
+    bool VerifySquenceOfBST(vector<int> sequence)
+    {
+        if (sequence.size() == 0)
+            return false;
         return judge(sequence);
     }
 };
-
-
 
 /*
 输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。
@@ -79,24 +91,27 @@ struct TreeNode {
 			val(x), left(NULL), right(NULL) {
 	}
 };*/
-class Solution {
+class Solution
+{
 public:
-    vector<vector<int> > res;
+    vector<vector<int>> res;
     vector<int> temp;
-    vector<vector<int> > FindPath(TreeNode* root,int expectNumber) {
-        if(root == NULL)    return res;
+    vector<vector<int>> FindPath(TreeNode *root, int expectNumber)
+    {
+        if (root == NULL)
+            return res;
         temp.push_back(root->val);
-        expectNumber-=root->val;
-        if(expectNumber==0 && root->left==NULL && root->right==NULL){
+        expectNumber -= root->val;
+        if (expectNumber == 0 && root->left == NULL && root->right == NULL)
+        {
             res.push_back(temp);
         }
-        FindPath(root->left,expectNumber);
-        FindPath(root->right,expectNumber);
+        FindPath(root->left, expectNumber);
+        FindPath(root->right, expectNumber);
         temp.pop_back();
         return res;
     }
 };
-
 
 /*
 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。
@@ -109,31 +124,33 @@ struct TreeNode {
 			val(x), left(NULL), right(NULL) {
 	}
 };*/
-class Solution {
+class Solution
+{
 public:
-    TreeNode* Convert(TreeNode* pRootOfTree)
+    TreeNode *Convert(TreeNode *pRootOfTree)
     {
-        if(pRootOfTree == nullptr) return nullptr;
-        TreeNode* pre = nullptr;
+        if (pRootOfTree == nullptr)
+            return nullptr;
+        TreeNode *pre = nullptr;
         convertHelper(pRootOfTree, pre);
-        TreeNode* res = pRootOfTree;
-        while(res ->left)
-            res = res ->left;
+        TreeNode *res = pRootOfTree;
+        while (res->left)
+            res = res->left;
         return res;
     }
-     
-    void convertHelper(TreeNode* cur, TreeNode*& pre)
-    {
-        if(cur == nullptr) return;
-        convertHelper(cur ->left, pre);
-        cur ->left = pre;
-        if(pre) pre ->right = cur;
-        pre = cur;
-        convertHelper(cur ->right, pre);
 
+    void convertHelper(TreeNode *cur, TreeNode *&pre)
+    {
+        if (cur == nullptr)
+            return;
+        convertHelper(cur->left, pre);
+        cur->left = pre;
+        if (pre)
+            pre->right = cur;
+        pre = cur;
+        convertHelper(cur->right, pre);
     }
 };
-
 
 /*
 给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。
@@ -148,22 +165,28 @@ struct TreeLinkNode {
     }
 };
 */
-class Solution {
+class Solution
+{
 public:
-    TreeLinkNode* GetNext(TreeLinkNode* pNode)
+    TreeLinkNode *GetNext(TreeLinkNode *pNode)
     {
-        if(pNode == NULL)   return NULL;
-        if(pNode->right!=NULL){
-            pNode=pNode->right;
-            while(pNode->left!=NULL){
-                pNode=pNode->left;
+        if (pNode == NULL)
+            return NULL;
+        if (pNode->right != NULL)
+        {
+            pNode = pNode->right;
+            while (pNode->left != NULL)
+            {
+                pNode = pNode->left;
             }
             return pNode;
         }
-        while(pNode->next!=NULL){
-            TreeLinkNode* parent=pNode->next;
-            if(parent->left==pNode) return parent;
-            pNode=parent;
+        while (pNode->next != NULL)
+        {
+            TreeLinkNode *parent = pNode->next;
+            if (parent->left == pNode)
+                return parent;
+            pNode = parent;
         }
         return NULL;
     }
@@ -182,22 +205,28 @@ struct TreeLinkNode {
     }
 };
 */
-class Solution {
+class Solution
+{
 public:
-    TreeLinkNode* GetNext(TreeLinkNode* pNode)
+    TreeLinkNode *GetNext(TreeLinkNode *pNode)
     {
-        if(pNode == NULL)   return NULL;
-        if(pNode->right!=NULL){
-            pNode=pNode->right;
-            while(pNode->left!=NULL){
-                pNode=pNode->left;
+        if (pNode == NULL)
+            return NULL;
+        if (pNode->right != NULL)
+        {
+            pNode = pNode->right;
+            while (pNode->left != NULL)
+            {
+                pNode = pNode->left;
             }
             return pNode;
         }
-        while(pNode->next!=NULL){
-            TreeLinkNode* parent=pNode->next;
-            if(parent->left==pNode) return parent;
-            pNode=parent;
+        while (pNode->next != NULL)
+        {
+            TreeLinkNode *parent = pNode->next;
+            if (parent->left == pNode)
+                return parent;
+            pNode = parent;
         }
         return NULL;
     }
@@ -215,24 +244,27 @@ struct TreeNode {
     }
 };
 */
-class Solution {
+class Solution
+{
 public:
-    bool judge(TreeNode* left, TreeNode* right)
+    bool judge(TreeNode *left, TreeNode *right)
     {
-        if(left == NULL)    return right == NULL;
-        if(right == NULL) return false;
-        if(left->val!=right->val) return false;
+        if (left == NULL)
+            return right == NULL;
+        if (right == NULL)
+            return false;
+        if (left->val != right->val)
+            return false;
         return judge(left->left, right->right) && judge(left->right, right->left);
     }
 
-    bool isSymmetrical(TreeNode* pRoot)
+    bool isSymmetrical(TreeNode *pRoot)
     {
-        if(pRoot==NULL) return true;
-        return judge(pRoot->left,pRoot->right);
+        if (pRoot == NULL)
+            return true;
+        return judge(pRoot->left, pRoot->right);
     }
-
 };
-
 
 /*
 请实现一个函数按照之字形打印二叉树，
@@ -247,45 +279,51 @@ struct TreeNode {
     }
 };
 */
-class Solution {
+class Solution
+{
 public:
-    vector<vector<int> > Print(TreeNode* pRoot) {
-        vector<vector<int> > res;
-        if(pRoot == NULL)   return res;
-        stack<TreeNode*> even,odd;
+    vector<vector<int>> Print(TreeNode *pRoot)
+    {
+        vector<vector<int>> res;
+        if (pRoot == NULL)
+            return res;
+        stack<TreeNode *> even, odd;
         odd.push(pRoot);
-        bool flag=true;
-        while(!odd.empty()||!even.empty()){
+        bool flag = true;
+        while (!odd.empty() || !even.empty())
+        {
             vector<int> temp;
-            if(flag)
+            if (flag)
             {
-                while(!odd.empty()){
-                TreeNode* p=odd.top();
-                odd.pop();
-                temp.push_back(p->val);
-                if(p->left)
-                    even.push(p->left);
-                if(p->right)
-                    even.push(p->right);
+                while (!odd.empty())
+                {
+                    TreeNode *p = odd.top();
+                    odd.pop();
+                    temp.push_back(p->val);
+                    if (p->left)
+                        even.push(p->left);
+                    if (p->right)
+                        even.push(p->right);
                 }
-                flag=false;
+                flag = false;
             }
             else
             {
-                while(!even.empty()){
-                TreeNode* p=even.top();
-                even.pop();
-                temp.push_back(p->val);
-                if(p->right)
-                    odd.push(p->right);
-                if(p->left)
-                    odd.push(p->left);
+                while (!even.empty())
+                {
+                    TreeNode *p = even.top();
+                    even.pop();
+                    temp.push_back(p->val);
+                    if (p->right)
+                        odd.push(p->right);
+                    if (p->left)
+                        odd.push(p->left);
                 }
-                flag=true;
+                flag = true;
             }
             res.push_back(temp);
         }
-    
+
         return res;
     }
 };
@@ -302,70 +340,85 @@ struct TreeNode {
 };
 */
 
-class Solution{
+class Solution
+{
 public:
     void inorder(TreeNode *root)
     {
-        if(root==NULL)  return NULL;
-        stack<TreeNode*> s;
-        TreeNode* p=root;
-        while(!s.empty()||p){
-            while(p){
+        if (root == NULL)
+            return NULL;
+        stack<TreeNode *> s;
+        TreeNode *p = root;
+        while (!s.empty() || p)
+        {
+            while (p)
+            {
                 s.push(p);
-                p=p->left;
+                p = p->left;
             }
-            if(!s.empty()){
-                p=s.top();
+            if (!s.empty())
+            {
+                p = s.top();
                 s.pop();
-                cout <<p->val<<endl;
-                p=p->right;
+                cout << p->val << endl;
+                p = p->right;
             }
         }
     }
 
     void preorder(TreeNode *root)
     {
-        if(root==NULL)  return NULL;
-        stack<TreeNode*> s;
-        TreeNode* p=root;
-        while(!s.empty()||p){
-            while(p){
-                cout <<p->val<<endl;
+        if (root == NULL)
+            return NULL;
+        stack<TreeNode *> s;
+        TreeNode *p = root;
+        while (!s.empty() || p)
+        {
+            while (p)
+            {
+                cout << p->val << endl;
                 s.push(p);
-                p=p->left;
+                p = p->left;
             }
-            if(!s.empty()){
-                p=s.top();
+            if (!s.empty())
+            {
+                p = s.top();
                 s.pop();
-                p=p->right;
+                p = p->right;
             }
         }
     }
     //后序遍历的时候要设置一个指向前面的走过节点的指针
     void postorder(TreeNode *root)
     {
-        if(root==NULL)  return NULL;
-        stack<TreeNode*> s;
-        TreeNode* p=root;
-        TreeNode* plast=NULL;
+        if (root == NULL)
+            return NULL;
+        stack<TreeNode *> s;
+        TreeNode *p = root;
+        TreeNode *plast = NULL;
 
-        while(p){
+        while (p)
+        {
             s.push(p);
-            p=p->left;
+            p = p->left;
         }
-        while(!s.empty()){
-            p=s.top();
+        while (!s.empty())
+        {
+            p = s.top();
             s.pop();
-            if(p->right== NULL || plast==p->right){
-                cout<<p->val;
-                plast=p;
+            if (p->right == NULL || plast == p->right)
+            {
+                cout << p->val;
+                plast = p;
             }
-            else{
+            else
+            {
                 s.push(p);
-                p=p->right;
-                while(p){
+                p = p->right;
+                while (p)
+                {
                     s.push(p);
-                    p=p->left;
+                    p = p->left;
                 }
             }
         }
@@ -381,35 +434,133 @@ public:
 * 树的复制
 */
 
-class Solution{
+class Solution
+{
 public:
-    int Depth(TreeNode* root)
+    int Depth(TreeNode *root)
     {
-        if(root == NULL)    return 0;
-        int m=Depth(root->left);
-        int n=Depth(root->right);
-        return m>n?m+1:n+1;
+        if (root == NULL)
+            return 0;
+        int m = Depth(root->left);
+        int n = Depth(root->right);
+        return m > n ? m + 1 : n + 1;
     }
 
     int NodeCount(TreeNode *root)
     {
-        if(root == NULL)    return 0;
-        return NodeCount(root->left)+NodeCount(root->right)+1;
+        if (root == NULL)
+            return 0;
+        return NodeCount(root->left) + NodeCount(root->right) + 1;
     }
 
     int leafCount(TreeNode *root)
     {
-        if(root == NULL)    return 0;
-        if(root->left == NULL && root->right == NULL) return 1;
-        return leafCount(root->left)+leafCount(root->right);
+        if (root == NULL)
+            return 0;
+        if (root->left == NULL && root->right == NULL)
+            return 1;
+        return leafCount(root->left) + leafCount(root->right);
     }
 
-    TreeNode* copyTree(TreeNode*root, TreeNode &newTree)
+    TreeNode *copyTree(TreeNode *root, TreeNode &newTree)
     {
-        if(root == NULL) return NULL;
-        newTree=new TreeNode(0);
-        newTree->val=root->val;
-        copy(root->left,root->right);
-        copy(root->right,root->left);
+        if (root == NULL)
+            return NULL;
+        newTree = new TreeNode(0);
+        newTree->val = root->val;
+        copy(root->left, root->right);
+        copy(root->right, root->left);
+    }
+};
+
+/*
+* 线索二叉树
+* 先序创建线索二叉树
+* 线索化：先序、中序
+* 线索遍历：先序、中序
+* 查找后继与前驱
+*/
+class Solution
+{
+private:
+    typedef enum
+    {
+        Link,
+        Thread
+    } PointerTag;
+
+    typedef struct BiThrNode
+    {
+        ElemType data;
+        BiThrNode *lchild, *rchild;
+        PointerTag ltag, rtag;
+    } BiThrNode, *BiThrTree;
+
+public:
+    Status CreateBiThrTree(BiThrTree &PreT)
+    {
+        ElemType ch;
+        cin >> ch;
+        if (ch == '#')
+        {
+            PreT = NULL;
+        }
+        else
+        {
+            if (!(PreT = (BiThrNode *)malloc(sizeof(BiThrNode))))
+                exit(OVERFLOWED);
+            PreT->data = ch;
+            PreT->ltag = Link;
+            PreT->rtag = Link;
+            CreateBiThrTree(PreT->lchild);
+            CreateBiThrTree(PreT->rchild);
+        }
+        return OK;
+    }
+
+    void PreThreading(BiThrTree &p)
+    {
+        if (p)
+        {
+            if (!p->lchild)
+            {
+                p->LTag = Thread;
+                p->lchild = pre;
+            }
+            if (!pre->rchild)
+            {
+                pre->RTag = Thread;
+                pre->rchild = p;
+            }
+            pre = p;
+            if (p->LTag == Link)
+                PreThreading(p->lchild);
+            if (p->RTag == Link)
+                PreThreading(p->rchild);
+        }
+    }
+
+    //设置线索二叉树头节点
+    Status PreOrderThreading(BiThrTree &Thrt, BiThrTree T)
+    {
+        if (!(Thrt = (BiThrTree)malloc(sizeof(BiThrNode))))
+            return ERROR;
+        Thrt->RTag = Thread;
+        Thrt->rchild = Thrt;
+        Thrt->LTag = Link;
+        if (!T)
+        {
+            Thrt->lchild = Thrt;
+        }
+        else
+        {
+            Thrt->lchild = T;
+            pre = Thrt;
+            PreThreading(T);
+            pre->rchild = Thrt;
+            pre->RTag = Thread;
+            Thrt->rchild = pre;
+        }
+        return OK;
     }
 };
