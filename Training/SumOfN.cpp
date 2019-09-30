@@ -64,6 +64,18 @@ public:
     }
 
     int threeSumClosest(vector<int>& nums, int target) {
-        
+        if(nums.size()<=2)  return 0;
+        sort(nums.begin(),nums.end());
+        int res=nums[0]+nums[1]+nums[2];
+        for(int i=0;i<nums.size();++i){
+            int l=i+1,r=nums.size()-1;
+            while(l<r){
+                int b=(nums[i]+nums[l]+nums[r]);
+                if(abs(target-b)<abs(target-res))   res=b;
+                if(b<target)    l++;
+                if(b>target)    r--;
+                if(b==target)   return target;
+            }
+        }
     }
 };
