@@ -78,4 +78,33 @@ public:
             }
         }
     }
+
+/*
+四数之和
+三数之和再加一层循环
+*/
+	vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        if (nums.empty()) return {};
+        for(int z = 0; z < nums.size(); z ++){
+            if (z > 0 && nums[z] == nums[z - 1]) continue;
+            int newTarget = target - nums[z];
+            for(int k = z+1; k < nums.size(); k++){
+                if(k > z+1 && nums[k] == nums[k - 1]) continue;
+                int newTarget2 = newTarget - nums[k];
+                int i = k + 1, j = nums.size() - 1;
+                while (i < j) {
+                    if (nums[i] + nums[j] == newTarget2) {
+                        res.push_back({nums[z], nums[k], nums[i], nums[j]});
+                        while (i < j && nums[i] == nums[i + 1]) ++i;
+                        while (i < j && nums[j] == nums[j - 1]) --j;
+                        ++i; --j;
+                    } else if (nums[i] + nums[j] < newTarget2) ++i;
+                    else --j;
+                }
+            }
+        }
+        return res;
+    }
 };
